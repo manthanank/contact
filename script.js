@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
             message: message,
         };
 
-        const apiEndpoint = "https://backend-app-8ev9.onrender.com/api/contact";
+        const apiEndpoint = "https://backend-app-manthanank.vercel.app/api/contact";
         // const apiEndpoint = "https://localhost:3000/api/contact";
 
         fetch(apiEndpoint, {
