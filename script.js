@@ -40,9 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     contactForm.reset();
                     responseMessage.innerHTML = "";
                     responseMessage.classList.remove("success", "show");
-                    submitButton.value = 'Submit';
-                    submitButton.disabled = false; // Re-enable the button
                 }, 2000);
+                submitButton.value = 'Submit';
+                submitButton.disabled = false; // Re-enable the button
             })
             .catch(error => {
                 console.error("Error:", error);
@@ -52,9 +52,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 setTimeout(() => {
                     responseMessage.innerHTML = "";
                     responseMessage.classList.remove("error", "show");
-                    submitButton.value = 'Submit';
-                    submitButton.disabled = false; // Re-enable the button
                 }, 3000);
+                submitButton.value = 'Submit';
+                submitButton.disabled = false; // Re-enable the button
             });
     });
 });
