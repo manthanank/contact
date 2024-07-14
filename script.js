@@ -33,6 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(response => response.json())
             .then(data => {
+                submitButton.value = 'Submit';
+                submitButton.disabled = false; // Re-enable the button
                 responseMessage.innerHTML = `<p>${data.message}</p>`;
                 responseMessage.classList.add("success", "show"); // Add 'show' class to make the message visible
 
@@ -41,11 +43,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     responseMessage.innerHTML = "";
                     responseMessage.classList.remove("success", "show");
                 }, 2000);
-                submitButton.value = 'Submit';
-                submitButton.disabled = false; // Re-enable the button
             })
             .catch(error => {
                 console.error("Error:", error);
+                submitButton.value = 'Submit';
+                submitButton.disabled = false; // Re-enable the button
                 responseMessage.innerHTML = `<p>Error submitting the form. Please try again later.</p>`;
                 responseMessage.classList.add("error", "show"); // Add 'show' class to make the message visible
 
@@ -53,8 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     responseMessage.innerHTML = "";
                     responseMessage.classList.remove("error", "show");
                 }, 3000);
-                submitButton.value = 'Submit';
-                submitButton.disabled = false; // Re-enable the button
             });
     });
 });
