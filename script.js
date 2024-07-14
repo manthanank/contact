@@ -1,9 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
     const contactForm = document.getElementById("contactForm");
     const responseMessage = document.getElementById("responseMessage");
+    const submitButton = document.getElementById("submitButton");
 
     contactForm.addEventListener("submit", function (event) {
         event.preventDefault();
+
+        // Change button text to "Submitting..."
+        submitButton.value = 'Submitting...';
+        submitButton.disabled = true; // Optional: disable the button to prevent multiple submissions
 
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
@@ -16,8 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
             message: message,
         };
 
-        const apiEndpoint = "https://backend-app-8ev9.onrender.com/api/contact";
-        // const apiEndpoint = "https://localhost:3000/api/contact";
+        const apiEndpoint = window.location.hostname === "localhost" ? "http://localhost:3000/api/contact" : "https://backend-app-8ev9.onrender.com/api/contact";
 
         fetch(apiEndpoint, {
             method: "POST",
@@ -36,6 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     contactForm.reset();
                     responseMessage.innerHTML = "";
                     responseMessage.classList.remove("success", "show");
+                    submitButton.value = 'Submit';
+                    submitButton.disabled = false; // Re-enable the button
                 }, 2000);
             })
             .catch(error => {
@@ -46,6 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 setTimeout(() => {
                     responseMessage.innerHTML = "";
                     responseMessage.classList.remove("error", "show");
+                    submitButton.value = 'Submit';
+                    submitButton.disabled = false; // Re-enable the button
                 }, 3000);
             });
     });
