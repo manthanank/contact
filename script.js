@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
             message: message,
         };
 
-        const apiEndpoint = window.location.hostname === "localhost" ? "http://localhost:3000/api/contact" : "https://backend-app-8ev9.onrender.com/api/contact";
+        const apiEndpoint = window.location.hostname === "localhost" ? "http://localhost:3000/api/contact" : "https://contact-application-api.vercel.app/api/contacts";
 
         fetch(apiEndpoint, {
             method: "POST",
