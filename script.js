@@ -2,19 +2,39 @@ document.addEventListener("DOMContentLoaded", function () {
     const contactForm = document.getElementById("contactForm");
     const responseMessage = document.getElementById("responseMessage");
     const submitButton = document.getElementById("submitButton");
+    const emailInput = document.getElementById("email");
+    const yearSpan = document.getElementById("year");
+
+    // Set current year in footer
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
+
+    // Real-time email validation
+    emailInput.addEventListener("input", function () {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailRegex.test(emailInput.value)) {
+            emailInput.classList.add("valid");
+            emailInput.classList.remove("invalid");
+        } else if (emailInput.value === "") {
+            emailInput.classList.remove("valid", "invalid");
+        } else {
+            emailInput.classList.add("invalid");
+            emailInput.classList.remove("valid");
+        }
+    });
 
     contactForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
         // Change button text to "Submitting..."
-        submitButton.value = 'Submitting...';
-        submitButton.disabled = true; // Optional: disable the button to prevent multiple submissions
+        submitButton.innerHTML = '<span class="spinner"></span>Sending...';
+        submitButton.disabled = true;
 
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const message = document.getElementById('message').value;
 
-        // const formData = new FormData(contactForm);
         const formData = {
             name: name,
             email: email,
@@ -26,35 +46,39 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(apiEndpoint, {
             method: "POST",
             headers: {
-                'Content-Type':
-                    'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify(formData)
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Server responded with ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
-                submitButton.value = 'Submit';
-                submitButton.disabled = false; // Re-enable the button
-                responseMessage.innerHTML = `<p>${data.message}</p>`;
-                responseMessage.classList.add("success", "show"); // Add 'show' class to make the message visible
+                submitButton.innerHTML = 'Submit';
+                submitButton.disabled = false;
+                responseMessage.innerHTML = `<p>${data.message || 'Message sent successfully!'}</p>`;
+                responseMessage.classList.add("success", "show");
 
                 setTimeout(() => {
                     contactForm.reset();
                     responseMessage.innerHTML = "";
                     responseMessage.classList.remove("success", "show");
-                }, 2000);
+                }, 3000);
             })
             .catch(error => {
                 console.error("Error:", error);
-                submitButton.value = 'Submit';
-                submitButton.disabled = false; // Re-enable the button
+                submitButton.innerHTML = 'Submit';
+                submitButton.disabled = false;
                 responseMessage.innerHTML = `<p>Error submitting the form. Please try again later.</p>`;
-                responseMessage.classList.add("error", "show"); // Add 'show' class to make the message visible
+                responseMessage.classList.add("error", "show");
 
                 setTimeout(() => {
                     responseMessage.innerHTML = "";
                     responseMessage.classList.remove("error", "show");
-                }, 3000);
+                }, 5000);
             });
     });
 });

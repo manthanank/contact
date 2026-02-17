@@ -1,6 +1,18 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
-body { background: #1E1E1E; /* Dark background color */ }
+body { 
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+  background: radial-gradient(circle at top left, #1a1a2e, #16213e, #0f3460);
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
 
 header {
   text-align: center;
@@ -9,30 +21,74 @@ header {
 }
 
 h1 {
-  margin: 0;
-  font-size: 36px;
+  margin: 10px 0;
+  font-size: 42px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #fff 0%, #a5a5a5 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-form { max-width: 420px; margin: 50px auto; }
+.back-link {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.back-link:hover {
+  color: #fff;
+  transform: translateX(-5px);
+}
+
+form { 
+  max-width: 450px; 
+  width: 90%;
+  margin: 20px auto;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
 
 .feedback-input {
   color: white;
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: 500;
-  font-size: 18px;
-  border-radius: 5px;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 16px;
+  border-radius: 12px;
   line-height: 22px;
-  background-color: transparent;
-  border: 2px solid #7c7c7c; /* Dark gray color for borders */
-  transition: all 0.3s;
-  padding: 13px;
-  margin-bottom: 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 15px;
+  margin-bottom: 20px;
   width: 100%;
   box-sizing: border-box;
   outline: 0;
 }
 
-.feedback-input:focus { border: 2px solid #555; /* Slightly lighter gray color on focus */ }
+.feedback-input:focus { 
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.feedback-input.valid {
+  border-color: rgba(72, 187, 120, 0.6) !important;
+  box-shadow: 0 0 10px rgba(72, 187, 120, 0.2);
+}
+
+.feedback-input.invalid {
+  border-color: rgba(245, 101, 101, 0.6) !important;
+  box-shadow: 0 0 10px rgba(245, 101, 101, 0.2);
+}
 
 textarea {
   height: 150px;
@@ -41,21 +97,38 @@ textarea {
 }
 
 [type="submit"] {
-  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   width: 100%;
-  background: #555; /* Dark gray color for the button background */
-  border-radius: 5px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
   border: 0;
   cursor: pointer;
   color: white;
-  font-size: 24px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  transition: all 0.3s;
-  margin-top: -4px;
+  font-size: 18px;
+  padding: 15px;
+  transition: all 0.3s ease;
+  margin-top: 10px;
   font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
-[type="submit"]:hover { background: #777; /* Slightly lighter gray color on hover */ }
+
+[type="submit"]:hover { 
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+  filter: brightness(1.1);
+}
+
+[type="submit"]:active {
+  transform: translateY(0);
+}
+
+[type="submit"]:disabled {
+  background: #4a4a4a;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
 
 #responseMessage {
   border-radius: 5px;
@@ -79,16 +152,38 @@ textarea {
   opacity: 1;
 }
 
+/* Spinner Styles */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 footer {
-  color: #fff;
+  color: rgba(255, 255, 255, 0.5);
   text-align: center;
-  padding-bottom: 20px;
-  position: fixed;
-  bottom: 0;
+  padding: 40px 20px 20px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 footer p {
   margin: 0;
-  font-size: 14px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+#year {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
 }
